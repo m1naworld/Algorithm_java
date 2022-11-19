@@ -1,8 +1,8 @@
 import java.util.*;
 
-class ElementDouble {
+public class Day1 {
 
-    public int[] solution(int[] numbers) {
+    public static int[] solution(int[] numbers) {
         // 내 풀이
         int[] doubleNumbers = new int[numbers.length];
 
@@ -33,15 +33,15 @@ class ElementDouble {
         // 가장 간단한 한줄 풀이였다. 그러나 속도는 느린편이었다.
 //        return Arrays.stream(numbers).map(i -> i * 2).toArray();
     }
-}
 
-public class Day1 {
+
     public static void main(String[] args) {
-
-        ElementDouble e = new ElementDouble();
-
         int[] numbers = {1, 2, 3, 4, 5};
 
-        System.out.println(Arrays.toString(e.solution(numbers)));
+        int[] result = solution(numbers);
+        System.out.println(Arrays.toString(result));
     }
+
 }
+
+
