@@ -5,7 +5,7 @@ public class PrimeNumber {
 
     public static int solution(int[] nums) {
 
-        // 기존 내 코드 >> 평균 5.x ms 
+        // 기존 내 코드 >> 평균 5.x ms
         boolean[] prime = new boolean[3000];
 
         // 소수 판별
@@ -21,7 +21,7 @@ public class PrimeNumber {
             prime[i] = true;
         }
 
-        // 범준님 코드  >> 평균 1.00ms 이하
+//        // 범준님 코드  >> 평균 1.00ms 이하
 //        boolean[] prime = new boolean[3000+1];
 //        Arrays.fill(prime, true); // 소수 배열 초기화
 //        prime[0] = false;
@@ -29,7 +29,7 @@ public class PrimeNumber {
 //
 //        for(int i=2; i <= 3000; i++){
 //            if(prime[i]){
-//                for(int l = i+i; i <= 3000; l+=i){
+//                for(int l = i+i; l <= 3000; l+=i){
 //                    prime[l] = false;
 //                }
 //                if(i*i >= 3000)break;
