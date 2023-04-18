@@ -1,5 +1,7 @@
 package programmers.dfs;
 
+import java.util.Stack;
+
 /*
 문제 설명
 
@@ -23,39 +25,76 @@ number	k	return
 
 public class 큰_수_만들기 {
 
-	public static String solution(String number, int k) {
-		StringBuilder sf = new StringBuilder(number);
+    public static String solution(String number, int k) {
 
-		int reminder = k;
+        StringBuilder answer = new StringBuilder();
+		Stack<Character> stack = new Stack<>();
 
-		for (int i = 0; i < sf.length(); ) {
-			if (reminder == 0) {
-				break;
-			}
+        for (int i = 0; i < number.length(); i++) {
+            char n = number.charAt(i);
+            while (!stack.isEmpty() && stack.peek() < n && k > 0) {
+                stack.pop();
+                k--;
+            }
+            stack.push(n);
+        }
 
-			if (sf.charAt(i) < sf.charAt(i + 1)) {
-				sf.delete(i, i + 1);
-				reminder -= 1;
+        // k가 남아있을 경우
+        while (k > 0) {
+            stack.pop();
+            k--;
+        }
 
-				i = i > 0 ? i - 1 : 0;
-			} else {
-				i++;
-			}
-		}
+        for (char c : stack) {
+            answer.append(c);
+        }
 
-		String answer = sf.toString();
-		return answer;
-	}
+        return answer.toString();
+    }
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 		solution("1924", 2);
 		solution("1231234", 3);
-		solution("4177252841", 4);
-	}
+        solution("4177252841", 4);
+    }
 }
 
 /*
-테스트 8: 73.10ms
-테스트 10: 1748.18ms
-테스트 12: 런타임 에러
+테스트 10: 75.70ms
+테스트 12: 0.39ms
 */
+
+/* 기존코드
+
+public static String solution(String number, int k) {
+	StringBuilder sf = new StringBuilder(number);
+
+	int reminder = k;
+
+	for (int i = 0; i < sf.length(); ) {
+		if (reminder == 0) {
+			break;
+		}
+
+		if (sf.charAt(i) < sf.charAt(i + 1)) {
+			sf.delete(i, i + 1);
+			reminder -= 1;
+
+			i = i > 0 ? i - 1 : 0;
+		} else {
+			i++;
+		}
+	}
+
+	String answer = sf.toString();
+	return answer;
+}
+
+느린 이유: StringBuilder의 delete() 메서드를 호출할 때마다 문자열을 복사해야 하기 때문.
+StringBuilder는 내부적으로 문자열 버퍼를 가지고 있어서 문자열을 추가할 때는 버퍼에 직접 추가하지만, 문자열을 삭제할 때는 버퍼의 내용을 복사해야 하므로 시간이 오래 걸릴 수 있음.
+
+추가 꿀팁) 문자열을 비교할 때는 char형으로 비교하는 것이 더 효율적!!
+char형은 정수형으로 처리되기 때문에 비교 연산자로 바로 비교할 수 있지만, 문자열은 내부적으로 문자 배열로 처리되기 때문에 charAt() 메서드를 호출하여 문자를 가져와야 함. 이러한 이유로 문자열을 비교하는 것보다는 char형으로 비교하는 것이 더 효율적입니다.
+- 문자열 비교가 자주 일어나는 경우에는 char형 배열 char형 배열을 사용하고, 비교할 때도 char형으로 비교하는 것이 좋음.
+- 문자열을 동적으로 조작하는 경우에 StringBuilder가 유용
+ */
