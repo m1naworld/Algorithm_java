@@ -1,4 +1,4 @@
-package programmers.dfs;
+package programmers.greedy;
 
 import java.util.Stack;
 
